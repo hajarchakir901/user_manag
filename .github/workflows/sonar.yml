@@ -22,7 +22,11 @@ jobs:
           distribution: 'temurin'
       
       - name: Build with Maven
-        run: mvn clean compile -DskipTests
+        shell: powershell
+        run: |
+          $env:Path = "C:\ProgramData\chocolatey\lib\maven\apache-maven-3.9.11\bin;$env:Path"
+          mvn --version
+          mvn clean compile -DskipTests
       
       - name: SonarQube Scan
         run: |
@@ -30,4 +34,4 @@ jobs:
       
       - name: Analysis Complete
         if: success()
-        run: echo "Analyse terminee! Voir http://localhost:9000"
+        run: echo "Analyse SonarQube terminee avec succes! Consultez http://localhost:9000"
