@@ -15,30 +15,6 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-      
-      - name: Build with Maven
-        run: mvn clean compile -DskipTests
-        continue-on-error: true
-      
       - name: SonarQube Scan
-        shell: powershell
         run: |
-          Write-Host "🔍 Starting SonarQube analysis..."
-          docker run --rm `
-            -e SONAR_HOST_URL=http://host.docker.internal:9000 `
-            -e SONAR_TOKEN=${{ secrets.SONAR_TOKEN }} `
-            -v "${{ github.workspace }}:/usr/src" `
-            --add-host=host.docker.internal:host-gateway `
-            sonarsource/sonar-scanner-cli
-      
-      - name: Analysis Complete
-        if: success()
-        run: |
-          echo "✅ Analyse SonarQube terminée avec succès!"
-          echo "📊 Consultez les résultats sur http://localhost:9000"
-
+          docker run --rm -e SONAR_HOST_URL=http://host.docker.internal:9000 -e SONAR_TOKEN=${{ secrets.SONAR_TOKEN }} -v "${{ github.workspace }}:/usr/src" --add-host=host.docker.internal:host-gateway sonarsource/sonar-scanner-cli
