@@ -41,22 +41,4 @@ jobs:
         run: |
           echo "✅ Analyse SonarQube terminée avec succès!"
           echo "📊 Consultez les résultats sur http://localhost:9000"
-```
 
-## ✅ Étape 4 : Vérifier la structure du projet
-
-Assurez-vous que votre projet a cette structure :
-```
-user-management/
-├── .github/
-│   └── workflows/
-│       └── sonarqube.yml
-├── src/
-│   ├── main/
-│   │   └── java/
-│   └── test/
-│       └── java/
-├── target/
-│   └── classes/
-├── pom.xml
-└── sonar-project.properties
